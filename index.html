@@ -2,21 +2,189 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>唐诗一首</title>
+	<title>Document</title>
 	<style>
-		body{
-			background:orange;
-		}
+	*{margin:0;padding:0;}
+	ul{list-style: none}
+	.banner-box{
+		position: relative;
+		width: 720px;
+		height: 330px;
+		margin: 200px auto;
+		overflow: hidden;
+		border: 2px solid #666;
+	}
+	.banner-box .inner{
+		width: 720px;
+		height: 330px;
+	}
+	.banner-box .banner{
+		position: absolute;
+		width: 500%;
+		height: 330px;
+	}
+	.banner li{
+		width: 720px;
+		height: 430px;
+		cursor: pointer;
+		float: left;
+		font-size: 200px;
+		text-align: center;
+		line-height: 330px;
+	}
+	.banner li:nth-child(1){
+		background-color: red;
+	}
+	.banner li:nth-child(2){
+		background-color: orange;
+	}
+	.banner li:nth-child(3){
+		background-color: yellow;
+	}
+	.banner li:nth-child(4){
+		background-color: green;
+	}
+	.banner li:nth-child(5){
+		background-color: purple;
+	}
+	.subscript{
+		position:absolute;
+		bottom: 10px;
+		right: 20px;
+		text-align: center;
+	}
+	.current{
+		background-color: #fff !important;
+		color: #333 !important;
+		border: 1px solid #333 !important;
+	}
+	div>ul:last-child li{
+		width: 18px;
+		height: 18px;
+		background-color: #333;
+		float:left;
+		margin-left: 10px;
+		border-radius: 100%;
+		cursor: pointer;
+		font-size: 12px;
+		color: #fff;
+		line-height: 18px;
+		text-align: center;
+		font-weight: 700;
+		border: 1px solid #fff;
+	}
+	.banner-btn{
+		position: absolute;
+		width: 30px;
+		height: 72px;
+		background-color: #999;
+		text-align: center;
+		line-height: 72px;
+		font-size: 30px;
+		cursor: pointer;
+	}
+	.btn-left{
+		top:50%;
+		margin-top: -36px;
+	}
+	.btn-right{
+		right: 0px;
+		top:50%;
+		margin-top: -36px;
+	}
+	.banner-btn{
+		position: absolute;
+		width: 30px;
+		height: 60px;
+		background-color: rgba(0,0,0,0.7);
+		text-align: center;
+		line-height: 60px;
+		font-size: 30px;
+		cursor: pointer;
+		color: #fff;
+	}
+	.btn-left{
+		top:50%;
+		left:10px;
+		margin-top: -36px;
+	}
+	.btn-right{
+		right: 10px;
+		top:50%;
+		margin-top: -36px;
+	}
+	#arr{
+		display: none;
+	}
 	</style>
-	<script></script>
 </head>
 <body>
+<div class="banner-box">
+	<div class="inner">
+		<ul class="banner">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<ul class="subscript">
+				<li class="current">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+		</ul>
+	</div>
+</div>
+	<script>
+	//需求:鼠标放到小方块上面,上面的图片向左移动图片的宽
+	//思路:绑定事件,点亮指定的盒子 , 移动ul
+	//步骤:1.获取事件源
+	//	   2.绑定事件和书写事件驱动程序,(for循环绑定)
 
-	<h1>静夜思</h1>
-	<p>床前明月光</p>
-	<p>疑是地上霜</p>
-	<p>举头望明月</p>
-	<p>低头思故乡</p>
+	var ultest = document.getElementsByTagName("ul");
+	console.log(ultest)
+	var inner = document.getElementsByClassName("inner")[0];
+	var ul = inner.children[0];
+	var liArr2 = inner.children[1].children;
+	for(var i=0;i<liArr2.length;i++){
+		//属性绑定(自定义属性存储盒子的索引值)
+		//用li的innerHTML属性也可以,但是为了代码的健壮性, 我们选择使用自定义属性
+		liArr2[i].index = i; //绑定的是索引值,所以移动盒子的时候不用-1
+		liArr2[i].onmouseover = function(){
+	//	   3.点亮盒子
+			for(var j=0;j<liArr2.length;j++){
+				liArr2[j].className = ""
+			}
+				this.className = "current"
+				
+	//	   4.移动ul(向左移动,给定目标为 - 	值,放到第几个小方块上向左移动n-1个图片的宽)
+	//	   利用框架移动盒子(两个参数:1.元素 2.目标位置)
+		animate(ul,-this.index*720)
+		}	
+	}
+	function animate(ele,target){
+		//要用定时器, 先清除定时器
+		//一个盒子只能有一个定时器,这样的话不会出现定时器冲突,不会和其他盒子期冲突
+		//而定时器本省将成为盒子的一个属性
+		clearInterval(ele.timer)
+		//我们要求盒子既能向前又能向后,那么我们的步长就得有正有负
+		//目标值如果大于当前值取正值,目标值如果小于值取负
+		var speed = target>ele.offsetLeft?10:-10;
+		ele.timer = setInterval(function(){
+			//在执行之前就获取当前值和目标值之差
+			var val = target - ele.offsetLeft;
+			ele.style.left = ele.offsetLeft + speed + "px";
+			//目标值和当前值只差如果小于步长,那么就不能在前进了
+			//因为步长有正有负,所有转换成绝对值来比较
+			if(Math.abs(val)<Math.abs(speed)){
+				ele.style.left = target + "px";
+				//clearInterval(timer)
+			}
+		},5)
+	}
 
+	</script>
 </body>
 </html>
