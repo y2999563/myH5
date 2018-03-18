@@ -2,189 +2,1076 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
-	<style>
-	*{margin:0;padding:0;}
-	ul{list-style: none}
-	.banner-box{
-		position: relative;
-		width: 720px;
-		height: 330px;
-		margin: 200px auto;
-		overflow: hidden;
-		border: 2px solid #666;
-	}
-	.banner-box .inner{
-		width: 720px;
-		height: 330px;
-	}
-	.banner-box .banner{
-		position: absolute;
-		width: 500%;
-		height: 330px;
-	}
-	.banner li{
-		width: 720px;
-		height: 430px;
-		cursor: pointer;
-		float: left;
-		font-size: 200px;
-		text-align: center;
-		line-height: 330px;
-	}
-	.banner li:nth-child(1){
-		background-color: red;
-	}
-	.banner li:nth-child(2){
-		background-color: orange;
-	}
-	.banner li:nth-child(3){
-		background-color: yellow;
-	}
-	.banner li:nth-child(4){
-		background-color: green;
-	}
-	.banner li:nth-child(5){
-		background-color: purple;
-	}
-	.subscript{
-		position:absolute;
-		bottom: 10px;
-		right: 20px;
-		text-align: center;
-	}
-	.current{
-		background-color: #fff !important;
-		color: #333 !important;
-		border: 1px solid #333 !important;
-	}
-	div>ul:last-child li{
-		width: 18px;
-		height: 18px;
-		background-color: #333;
-		float:left;
-		margin-left: 10px;
-		border-radius: 100%;
-		cursor: pointer;
-		font-size: 12px;
-		color: #fff;
-		line-height: 18px;
-		text-align: center;
-		font-weight: 700;
-		border: 1px solid #fff;
-	}
-	.banner-btn{
-		position: absolute;
-		width: 30px;
-		height: 72px;
-		background-color: #999;
-		text-align: center;
-		line-height: 72px;
-		font-size: 30px;
-		cursor: pointer;
-	}
-	.btn-left{
-		top:50%;
-		margin-top: -36px;
-	}
-	.btn-right{
-		right: 0px;
-		top:50%;
-		margin-top: -36px;
-	}
-	.banner-btn{
-		position: absolute;
-		width: 30px;
-		height: 60px;
-		background-color: rgba(0,0,0,0.7);
-		text-align: center;
-		line-height: 60px;
-		font-size: 30px;
-		cursor: pointer;
-		color: #fff;
-	}
-	.btn-left{
-		top:50%;
-		left:10px;
-		margin-top: -36px;
-	}
-	.btn-right{
-		right: 10px;
-		top:50%;
-		margin-top: -36px;
-	}
-	#arr{
-		display: none;
-	}
-	</style>
+	<title>京东(JD.COM)-正品低价、品质保障、配送及时、轻松购物！</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/iconfont/iconfont.css">
+	<link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
-<div class="banner-box">
-	<div class="inner">
-		<ul class="banner">
-			<li><a href="transcript.html">1</a></li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-			<li>5</li>
-		</ul>
-		<ul class="subscript">
-				<li class="current">1</li>
-				<li>2</li>
-				<li>3</li>
-				<li>4</li>
-				<li>5</li>
-		</ul>
+
+	<!-- top-banner 部分start -->
+	<div class="top-banner">
+		<div class="w tb">
+			<a href="#">
+				<img src="images/top-banner.jpg" alt="">
+			</a>
+			<a href="#" class="colse-banner"></a>
+		</div>
 	</div>
-</div>
-	<script>
-	//需求:鼠标放到小方块上面,上面的图片向左移动图片的宽
-	//思路:绑定事件,点亮指定的盒子 , 移动ul
-	//步骤:1.获取事件源
-	//	   2.绑定事件和书写事件驱动程序,(for循环绑定)
+	<!-- top-banner 部分end -->
 
-	var ultest = document.getElementsByTagName("ul");
-	console.log(ultest)
-	var inner = document.getElementsByClassName("inner")[0];
-	var ul = inner.children[0];
-	var liArr2 = inner.children[1].children;
-	for(var i=0;i<liArr2.length;i++){
-		//属性绑定(自定义属性存储盒子的索引值)
-		//用li的innerHTML属性也可以,但是为了代码的健壮性, 我们选择使用自定义属性
-		liArr2[i].index = i; //绑定的是索引值,所以移动盒子的时候不用-1
-		liArr2[i].onmouseover = function(){
-	//	   3.点亮盒子
-			for(var j=0;j<liArr2.length;j++){
-				liArr2[j].className = ""
-			}
-				this.className = "current"
-				
-	//	   4.移动ul(向左移动,给定目标为 - 	值,放到第几个小方块上向左移动n-1个图片的宽)
-	//	   利用框架移动盒子(两个参数:1.元素 2.目标位置)
-		animate(ul,-this.index*720)
-		}	
-	}
-	function animate(ele,target){
-		//要用定时器, 先清除定时器
-		//一个盒子只能有一个定时器,这样的话不会出现定时器冲突,不会和其他盒子期冲突
-		//而定时器本省将成为盒子的一个属性
-		clearInterval(ele.timer)
-		//我们要求盒子既能向前又能向后,那么我们的步长就得有正有负
-		//目标值如果大于当前值取正值,目标值如果小于值取负
-		var speed = target>ele.offsetLeft?10:-10;
-		ele.timer = setInterval(function(){
-			//在执行之前就获取当前值和目标值之差
-			var val = target - ele.offsetLeft;
-			ele.style.left = ele.offsetLeft + speed + "px";
-			//目标值和当前值只差如果小于步长,那么就不能在前进了
-			//因为步长有正有负,所有转换成绝对值来比较
-			if(Math.abs(val)<Math.abs(speed)){
-				ele.style.left = target + "px";
-				//clearInterval(timer)
-			}
-		},5)
-	}
+	<!-- site-nav 部分start -->
+	<div class="site-nav">
+		<div class="w">
+			<div class="fl">
 
-	</script>
+			<div class='site-nav-send'><i class="iconfont ic">&#xe61a;</i><span class="span-text">北京</span><i class="iconfont">&#xe601;</i> </div>
+					<div class="site-nav-city"></div><!-- 城市 后期js写 -->
+			</div>
+			<div class="fr site-nav-r">
+				<ul>
+					<li>
+					<a href="#">你好，请登录</a>&nbsp;
+					<a href="#" class="col-red">免费注册</a>
+					</li>
+					<li class="line"></li>
+					<li><a href="#">我的订单</a></li>
+					<li class="line"></li>
+					<li class="fore">
+					<a href="#">我的京东</a> 
+					<i class="iconfont">&#xe601;</i> 
+					</li>
+					<li class="line"></li>
+					<li><a href="#">京东会员</a></li>
+					<li class="line"></li>
+					<li class="fore">
+					<a href="#">企业采购</a>
+					</li>
+					<li class="line"></li>
+					<li class="fore">
+					<a href="#">客户服务</a>
+					 <i class="iconfont">&#xe601;</i> 
+					</li>
+					<li class="line"></li>
+					<li class="fore">
+					<a href="#">网站导航</a>
+					</li>
+					<li class="line"></li>
+					<li class="jd-tel"> <span></span> <a href="#">手机京东</a>
+					<div class="two-password">
+					</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- site-nav 部分end -->
+
+	<!-- search 部分start -->
+	<div class="w search">
+		<div class="search-logo">
+			<h1 class="logo-tit">
+			<a href="#" class="logo_tit_lk">京东</a>
+			</h1>
+			<h2 class="logo_subtit">京东,多快好省</h2>
+		</div>
+		<div class="search-input">
+			<div class="form">
+				<input class="btn-l" type="text" value=" 电视盒子">
+				<input class="btn-r" type="button" value="搜索">
+			</div>
+			<div class=""></div> <!-- 后期js写 -->
+		</div>
+		<div class="search-car">
+			<div class="cw-icon">
+					<i class="iconfont ic">&#xe501;</i> <a href="#">我的购物车</a>
+					<i class="ci-count">1</i>
+			</div>
+		</div>
+		<div class="search-moreAlink">
+			<ul>
+				<li class="txt-blod"><a href="#">泰国榴莲</a></li>
+				<li><a href="#">满7减6</a></li>
+				<li><a href="#">新品直降</a></li>
+				<li><a href="#">鞋包秋尚新</a></li>
+				<li><a href="#">领卷减500</a></li>
+				<li><a href="#">电热水龙头</a></li>
+				<li><a href="#">羽毛球拍</a></li>
+				<li><a href="#">童乐车</a></li>
+				<li><a href="#">食用油</a></li>
+			</ul>
+		</div>
+
+		<div class="navitems">
+			<ul class="navitems-group1">
+				<li><a href="#">秒杀</a></li>
+				<li><a href="#">优惠券</a></li>
+				<li><a href="#">闪购</a></li>
+				<li><a href="#">拍卖</a></li>
+			</ul>
+			<span></span>
+			<ul class="navitems-group2">
+				<li><a href="#">服装城</a></li>
+				<li><a href="#">京东超市</a></li>
+				<li><a href="#">生鲜</a></li>
+				<li><a href="#">全球购</a></li>
+			</ul>
+			<span></span>
+			<ul class="navitems-group3">
+				<li><a href="#">京东金融</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- search 部分end -->
+
+	<!-- banner 部分start -->
+	<div class="banner w">
+		<div class="left-nav">
+				<ul>
+					<li>
+						<a href="#">家用电器</a>
+					</li>
+					<li>
+						<a href="#">手机/</a>
+						<a href="#">运营商/</a>
+						<a href="#">数码</a>
+					</li>
+					<li>
+						<a href="#">电脑/</a>
+						<a href="#">办公</a>
+					</li>
+					<li>
+						<a href="#">家居/</a>
+						<a href="#">家具/</a>
+						<a href="#">家装/</a>
+						<a href="#">厨具</a>
+					</li>
+					<li>
+						<a href="#">男装/</a>
+						<a href="#">女装/</a>
+						<a href="#">童装/</a>
+						<a href="#">内衣</a>
+					</li>
+					<li>
+						<a href="#">美妆个护/</a>
+						<a href="#">宠物</a>
+					</li>
+					<li>
+						<a href="#">女鞋/</a>
+						<a href="#">箱包/</a>
+						<a href="#">钟表/</a>
+						<a href="#">珠宝</a>
+					</li>
+					<li>
+						<a href="#">男鞋/</a>
+						<a href="#">运动/</a>
+						<a href="#">户外</a>
+					
+					</li>
+					<li>
+						<a href="#">汽车/</a>
+						<a href="#">汽车用品</a>
+					</li>
+					<li>
+						<a href="#">母婴/</a>
+						<a href="#">玩具乐器</a>
+					</li>
+					<li>
+						<a href="#">食品/</a>
+						<a href="#">酒类/</a>
+						<a href="#">生鲜/</a>
+						<a href="#">特产</a>
+					</li>
+					<li>
+						<a href="#">礼品鲜花/</a>
+						<a href="#">农资绿植</a>
+					</li>
+					<li>
+						<a href="#">医疗保健/</a>
+						<a href="#">计生情趣</a>
+					</li>
+					<li>
+						<a href="#">图书/</a>
+						<a href="#">音响/</a>
+						<a href="#">电子书</a>
+					</li>
+					<li>
+						<a href="#">机票/</a>
+						<a href="#">酒店/</a>
+						<a href="#">旅游/</a>
+						<a href="#">生活</a>
+					</li>
+					<li>
+						<a href="#">理财/</a>
+						<a href="#">众筹/</a>
+						<a href="#">白条/</a>
+						<a href="#">保险</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="banner-content">
+			<div class="banner-main">
+				<ul class="banner-news">
+					<li><a href="#"><img src="images/banner1.jpg" alt=""></a></li>
+					<li><a href="#"><img src="images/banner1.jpg" alt=""></a></li>
+					<li><a href="#"><img src="images/banner1.jpg" alt=""></a></li>
+					<li><a href="#"><img src="images/banner1.jpg" alt=""></a></li>
+					<li><a href="#"><img src="images/banner1.jpg" alt=""></a></li>
+					<li><a href="#"><img src="images/banner1.jpg" alt=""></a></li>
+					<li><a href="#"><img src="images/banner1.jpg" alt=""></a></li>
+					<li><a href="#"><img src="images/banner1.jpg" alt=""></a></li>
+				</ul>
+				<ul class="slider-main">
+					<li class="clo-red"></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+				<div class="arrow left_arrow">&lt;</div>
+				<div class="arrow right_arrow">&gt;</div>
+			</div>
+			<div class="extend">
+				<div class="e-common e-left"><a href="#"><img src="images/extend1.jpg" alt=""></a></div>
+				<div class="e-common e-right"><a href="#"><img src="images/extend2.jpg" alt=""></a></div>
+			</div>
+			</div>
+			
+			<div class="right-nav">
+				<div class="nav-top">
+						<div class="user-h">
+						<a href="#"><img class="user-img" src="images/no_login.jpg" alt=""></a>
+						</div>
+						<p>Hi,欢迎来到京东..</p>
+						<a href="#">登录&nbsp;</a>
+						<a href="#">&nbsp;注册</a>
+						<div class="kong"></div>
+						<div class="porfit">
+						<a class="btn-alike profit-l" href="#">新人福利</a>
+						<a class="btn-alike profit-r" href="#">PLUS会员</a>
+						</div>					
+						
+						
+				</div>
+				<div class="nav-center">
+					<div class="head-nav">
+						<a class="line-red" href="#">促销</a>
+						<span></span>
+						<a href="#">公告</a>
+						<a href="#">更多</a>
+					</div>
+					<div class="center-news">
+					<ul>
+						<li><a href="#">疯狂星期五，2件起5折</a></li>
+						<li><a href="#">七夕购鲜花赢生日会门票</a></li>
+						<li><a href="#">虾蟹一锅，2件8折！</a></li>
+						<li><a href="#">每日享折扣 京东品质游</a></li>
+					</ul>
+					<ul class="" style="display: none">
+						<li> <a href="#">福建部分地区因交通限行配送延...</a> </li>
+						<li> <a href="#">京东商城到家服务品牌上线</a> </li>
+						<li> <a href="#">京东保租上线 减法生活有惊喜</a> </li>
+						<li> <a href="#">沃尔玛与京东合作再升级 官方旗...</a> </li>
+					</ul>
+					</div>
+				</div>
+				<div class="nav-bottom">
+				<ul>
+					<li><a href="#"><i class="iconfont">&#xe639;</i><span>话费</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe614;</i><span>机票</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe602;</i><span>酒店</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe611;</i><span>游戏</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe657;</i><span>企业购</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe60a;</i><span>加油卡</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe643;</i><span>电影票</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe89a;</i><span>火车票</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe6c7;</i><span>众筹</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe62a;</i><span>理财</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xf008b;</i><span>礼品卡</span></a></li>
+					<li><a href="#"><i class="iconfont">&#xe6ce;</i><span>白条</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- banner 部分end -->
+		
+	<!-- site-content 部分start -->
+	<div class="grid-box w">
+		<div class="today">
+			<img src="images/today.png" alt="">
+			<i class="today-adorn"></i>
+			<div class="today-left">
+				<i class="today-img"></i>
+				<h3>京东秒杀</h3>
+				<a href="javascript:;">
+				总有你想不到的低价
+				<i class="arrow"></i>
+				</a>
+			</div>
+			<div class="today-right">
+			<span class="today-alike today-right-before">当前场次</span>
+			<div class="time-box">
+				<div class="time">
+					<span class="time-num">00</span>
+				</div>
+				<span class="time-box-colon">:</span>
+				<div class="time">
+					<span class="time-num">00</span>
+				</div>
+				<span class="time-box-colon">:</span>
+				<div class="time">
+					<span class="time-num">00</span>
+				</div>
+			</div>
+			<span class="today-alike today-right-after">后结束抢购</span>
+			</div>
+		</div>
+		<div class="grid-content">
+			<div class="grid-content-left">
+				<ul class="grid-content-left-vessel">
+					<li>
+					<a href="javascript:;"><img src="images/586b749cNb88a2e27.jpg" alt="">
+					<p>【京东超市】新西兰原装进口牛奶 安佳Anchor全脂牛奶UHT纯</p>
+					</a>
+					<p class="grid-content-left-vessel-muney">
+						<span class="grid-content-left-vessel-muney-price1">
+						<i>￥</i>
+						<span>89.00</span>
+						</span>
+						<span class="grid-content-left-vessel-muney-price2">
+						<i>￥</i>
+						<del>169.00</del>
+						</span>
+					</p>
+					</li>
+					<li><a href="javascript:;"><img src="images/598046efN0ed3dd30.jpg" alt="">
+					<p>美的（Midea）2匹 慧行 静音 故障自体检 四维立体送风 智能</p>
+					</a>
+					<p class="grid-content-left-vessel-muney">
+						<span class="grid-content-left-vessel-muney-price1">
+						<i>￥</i>
+						<span>6699.00</span>
+						</span>
+						<span class="grid-content-left-vessel-muney-price2">
+						<i>￥</i>
+						<del>7899.00</del>
+						</span>
+					</p>
+					</li></li>
+					<li><a href="javascript:;"><img src="images/58e4ada5N4697ecd4.jpg" alt="">
+					<p>【京东超市】洁柔（C&S）抽纸 粉Face 柔韧3层120抽面巾纸*2</p>
+					</a>
+					<p class="grid-content-left-vessel-muney">
+						<span class="grid-content-left-vessel-muney-price1">
+						<i>￥</i>
+						<span>49.00</span>
+						</span>
+						<span class="grid-content-left-vessel-muney-price2">
+						<i>￥</i>
+						<del>89.90</del>
+						</span>
+					</p>
+					</li></li>
+					<li><a href="javascript:;"><img src="images/58d087a2N6d810d44.jpg" alt="">
+					<p>海信（Hisense）1.5匹 白富美 二级能效 智能wifi 直流变频 空</p>
+					</a>
+					<p class="grid-content-left-vessel-muney">
+						<span class="grid-content-left-vessel-muney-price1">
+						<i>￥</i>
+						<span>2688.00</span>
+						</span>
+						<span class="grid-content-left-vessel-muney-price2">
+						<i>￥</i>
+						<del>3299.00</del>
+						</span>
+					</p>
+					</li></li>
+					<li><a href="javascript:;"><img src="images/58d5c6a8N0849687e.jpg" alt="">
+					<p>小熊（Bear）养生壶全自动玻璃电水壶烧水花茶壶煮茶壶多功能 </p>
+					</a>
+					<p class="grid-content-left-vessel-muney">
+						<span class="grid-content-left-vessel-muney-price1">
+						<i>￥</i>
+						<span>139.00</span>
+						</span>
+						<span class="grid-content-left-vessel-muney-price2">
+						<i>￥</i>
+						<del>299.00</del>
+						</span>
+					</p>
+					</li></li>
+				</ul>
+				<div class="arrow left_arrow">&lt;</div>
+				<div class="arrow right_arrow">&gt;</div>
+			</div>
+			<div class="grid-content-right">
+				<ul class="grid-content-right-box">
+					<li><a href=""><img src="images/599710ffN2fdd7930.jpg" alt=""></a></li>
+					<li></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="grid-box2 w">
+			<div class="sundry">
+				<div class="sundry-left today-left sundry-alike">	
+					<i class="today-adorn sundry-adorn"></i>
+					<i class="sundry-arrow-alike"></i>
+					<h3>发现好货</h3>
+					<a href="javascript:;">
+					发现品质生活
+					<i class="arrow"></i>
+					</a>
+				</div>
+				<div class="sundry-content sundry-content-alike">
+					<div class="sundry-content-hidden">
+						<ul>
+							<li>
+								<a href="javascirpt:;">
+								<p>华为银钻灰高清手机</p>
+								<img src="images/sundry-img1.jpg" alt="">
+								</a>
+							</li>
+							<li>
+								<a href="javascirpt:;">
+								<p>ONLY条纹衫背带裙套装</p>
+								<img src="images/sundry-img2.jpg" alt="">
+								</a>
+							</li>
+							<li>
+								<a href="javascirpt:;">
+								<p>漫步者 家用音响</p>
+								<img src="images/sundry-img3.jpg" alt="">
+								</a>
+							</li>
+							<li>
+								<a href="javascirpt:;">
+								<p>gxg.jeans印花T恤</p>
+								<img src="images/sundry-img4.jpg" alt="">
+								</a>
+							</li>
+							<li>
+								<a href="javascirpt:;">
+								<p>三彩松紧腰雪纺连衣裙</p>
+								<img src="images/sundry-img5.jpg" alt="">
+								</a>
+							</li>
+							<li>
+								<a href="javascirpt:;">
+								<p>华为i7超薄商务本</p>
+								<img src="images/sundry-img6.jpg" alt="">
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="sundry sundry-center">
+				<div class="sundry-middle today-left sundry-alike">	
+					<i class="today-adorn sundry-adorn"></i>
+					<i class="sundry-arrow-alike"></i>
+					<h3>会买专辑</h3>
+					<a href="javascript:;">
+					甄选优质好物
+					<i class="arrow"></i>
+					</a>
+				</div>
+				<div class="sundry-center-content sundry-content-alike">
+					<a href="javascript:;">
+						<p>从象牙塔迈进职场,你的新装备准备好了吗?</p>
+						<img src="images/sundry-img7.jpg" alt="">
+						<img src="images/sundry-img8.jpg" alt="">
+						<img src="images/sundry-img9.jpg" alt="">
+					</a>
+					<span></span>
+					<a href="javascript:;">
+						<p>轻松穿出甜美范,小仙女就选清透网纱裙</p>
+						<img src="images/sundry-img10.jpg" alt="">
+						<img src="images/sundry-img11.jpg" alt="">
+						<img src="images/sundry-img12.jpg" alt="">
+					</a>
+				</div>
+			</div>
+			<div class="sundry">
+				<div class="sundry-right today-left sundry-alike">	
+					<i class="today-adorn sundry-adorn"></i>
+					<i class="sundry-arrow-alike"></i>
+					<h3>排行榜</h3>
+					<a href="javascript:;">
+					专属你的购物指南
+					<i class="arrow"></i>
+					</a>
+				</div>
+				<div class="sundry-right-content sundry-content-alike">
+					<div class="sundry-right-content-title">
+						<div class="sundry-right-content-title-line col-red"></div>
+						<a href="javascript:;">手机通讯</a>
+						<a href="javascript:;">床品套装</a>
+						<a href="javascript:;">电脑配件</a>
+						<a href="javascript:;">夹克</a>
+						<a href="javascript:;">运动护具</a> 
+					</div>
+					<div class="sundry-right-content-commodity col-red">
+						<ul>
+							<li>
+							<div class="sundry-right-content-commodity-ranking ranking1">1</div>
+								<a href="javascript:;">
+									<img src="images/sundry-img13.jpg" alt="">
+									<p>小米 红米 4X 全网通版 2GB+16GB</p>
+								</a>
+							</li>
+							<li>
+							<div class="sundry-right-content-commodity-ranking ranking2">2</div>
+								<a href="javascript:;">
+									<img src="images/sundry-img14.jpg" alt="">
+									<p>荣耀8青春版 全网通 标配版 3GB+3</p>
+								</a>
+							</li>
+							<li>
+							<div class="sundry-right-content-commodity-ranking ranking3">3</div>
+								<a href="javascript:;">
+									<img src="images/sundry-img15.jpg" alt="">
+									<p>Appke iPhone 6 32G 金色 移动联</p>
+								</a>
+							</li>
+							<li>
+							<div class="sundry-right-content-commodity-ranking ranking4">4</div>
+								<a href="javascript:;">
+									<img src="images/sundry-img16.jpg" alt="">
+									<p>荣耀9 全网通 标配版 4GB+64GB 幻</p>
+								</a>
+							</li>
+							<li>
+							<div class="sundry-right-content-commodity-ranking ranking4">5</div>
+								<a href="javascript:;">
+									<img src="images/sundry-img17.jpg" alt="">
+									<p>
+									OPPO R11 全网通 4G+64G 双卡双待</p>
+								</a>
+							</li>
+							<li>
+							<div class="sundry-right-content-commodity-ranking ranking4">6</div>
+								<a href="javascript:;">
+									<img src="images/sundry-img18.jpg" alt="">
+									<p>
+									OPPO R11 全网通 4G+64G 双卡双待
+									</p>
+								</a>
+							</li>
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	<div class="grid-box3 w">
+		<div class="grid-securities">
+			<div class="grid-securities-left today-left sundry-alike">	
+				<i class="today-adorn sundry-adorn"></i>
+				<i class="sundry-arrow-alike"></i>
+				<h3>领券中心</h3>
+				<a href="javascript:;">
+					前往领券中心
+				<i class="arrow"></i>
+				</a>
+			</div>
+			<div class="grid-securities-left-box">
+				<ul>
+					<li>
+						<a href="javascript:;">
+							<div class="ticket">
+								<p class="ticket-p1">
+									<i>￥</i>
+									<span>200</span>
+									 </p>
+									 <p class="ticket-p ticket-p2">
+									 仅可购买京东自营华为部分手机
+									 </p>
+									<p class="ticket-p ticket-p3">
+									消费满1000元可用
+								 	</p>
+								 	<p class="ticket-p4">
+									更多好卷	 
+							</div>
+							<img src="images/sundry-img19.jpg" alt="">
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;">
+							<div class="ticket">
+								<p class="ticket-p1">
+								<i>￥</i>
+								<span>800</span>
+								 </p>
+								 <p class="ticket-p ticket-p2">
+								 仅可购买部分汉米尔顿自营商品
+								 </p>
+								 <p class="ticket-p ticket-p3">
+									消费满6999元可用
+								 </p>
+								 <p class="ticket-p4">
+									更多服饰箱包劵
+								 </p>
+							</div>
+							<img src="images/sundry-img20.jpg" alt="">
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;">
+							<div class="ticket">
+								<p class="ticket-p1">
+								<i>￥</i>
+								<span>1599</span>
+								 </p>
+								 <p class="ticket-p ticket-p2">
+								 仅可购买优学派学生平板指定商
+								 </p>
+								 <p class="ticket-p ticket-p3">
+									消费满1699元可用
+								 </p>
+								 <p class="ticket-p4">
+									更多数码家电劵
+								 </p>
+							</div>
+							<img src="images/sundry-img21.jpg" alt="">
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;">
+							<div class="ticket">
+								<p class="ticket-p1">
+								<i>￥</i>
+								<span>100</span>
+								 </p>
+								 <p class="ticket-p ticket-p2">
+								 仅可购买家纺指定商品
+								 </p>
+								 <p class="ticket-p ticket-p3">
+									消费满199元可用
+								 </p>
+								 <p class="ticket-p4">
+									更多家居家纺劵
+								 </p>
+							</div>
+							<img src="images/sundry-img22.png" alt="">
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="grid-me">
+			<div class="grid-me-right today-left sundry-alike">	
+				<i class="today-adorn sundry-adorn"></i>
+				<i class="sundry-arrow-alike"></i>
+				<h3>觅me</h3>
+				<a href="javascript:;">
+				探索生活
+				<i class="arrow"></i>
+				</a>
+			</div>
+			<div class="grid-securities-right-box">
+				<div class="arrow left_arrow">&lt;</div>
+				<div class="arrow right_arrow">&gt;</div>
+				<a href="">
+					<img src="images/sundry-img23.jpg" alt="">
+					<p class="me-p me-p1">航空金属机身,8寸高清屏,买平板送手机,你没有看错</p>
+					<p class="me-p me-p2">航空金属机身,8寸高清屏... <span>查看原文></span></p>
+					<span class="me-p me-p3"><i class="iconfont">&#xe60d;</i> 63387人看过</span>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- site-content 部分end -->
+
+	<!-- site-advertising 部分start -->
+		<div class="site-advertising">
+			<div class="site-advertising-content w">
+				<a href="javascirpt:;"><img src="images/sundry-img24.jpg" alt=""></a>
+				<a href="javascirpt:;"><img src="images/sundry-img25.jpg" alt=""></a>
+				<a href="javascirpt:;"><img src="images/sundry-img26.jpg" alt=""></a>
+			</div>
+		</div>
+	<!-- site-advertising 部分end -->
+
+	<!-- site-quality 部分start -->
+
+		<div class="site-quality-title w">
+			<span>.............................</span>
+			<h3>享品质</h3>
+			<span>.............................</span>
+		</div>
+
+		<!-- ************************** -->
+
+		<div class="site-quality-content w">
+			<ul>
+				<li class="site-quality-content-video">
+					<a href="javascript:;">
+						<div class="site-quality-content-video-title">
+							<h4>京东直播</h4>
+							<span>更多<i class="link-arrow"></i></span>
+						</div>
+						<a class="video-start" href="javascript:;"></a>
+					</a>
+					<div class="arrow left_arrow">&lt;</div>
+					<div class="arrow right_arrow">&gt;</div>
+				</li>
+				<li class="entry-item">
+						<a href="javascript:;">
+						<img src="images/sundry-img27.jpg" alt="">
+							<div class="entry-item-left entry-item-left-col1">
+								<h4 class="entry-item-left-alike">新品首发</h4>
+								<span class="entry-item-left-alike">OPPO特别版开抢</span>
+							</div>
+						</a>
+				</li>
+				<li class="entry-item">
+						<a href="javascript:;">
+						<img src="images/sundry-img28.jpg" alt="">
+							<div class="entry-item-left entry-item-left-col2">
+								<h4 class="entry-item-left-alike">会逛</h4>
+								<span class="entry-item-left-alike">七夕奢侈爱 满100减150</span>
+							</div>
+						</a>
+				</li>
+				<li class="entry-item">
+						<a href="javascript:;">
+						<img src="images/sundry-img29.jpg" alt="">
+							<div class="entry-item-left entry-item-left-col3">
+								<h4 class="entry-item-left-alike">奢侈大牌</h4>
+								<span class="entry-item-left-alike">尽享品质生活</span>
+							</div>
+						</a>
+				</li>
+				<li class="entry-item">
+						<a href="javascript:;">
+						<img src="images/sundry-img30.png" alt="">
+							<div class="entry-item-left entry-item-left-col4">
+								<h4 class="entry-item-left-alike">智能生活</h4>
+								<span class="entry-item-left-alike">智能潮货 嗨购不停</span>
+							</div>
+						</a>
+				</li>
+				<li class="entry-item">
+						<a href="javascript:;">
+						<img src="images/sundry-img31.jpg" alt="">
+							<div class="entry-item-left entry-item-left-col5">
+								<h4 class="entry-item-left-alike">京东超市</h4>
+								<span class="entry-item-left-alike">精选超值好货天天特价</span>
+							</div>
+						</a>
+				</li>
+				<li class="entry-item">
+						<a href="javascript:;">
+						<img src="images/sundry-img32.jpg" alt="">
+							<div class="entry-item-left entry-item-left-col6">
+								<h4 class="entry-item-left-alike">白条商城</h4>
+								<span class="entry-item-left-alike">最高12期免息</span>
+							</div>
+						</a>
+				</li>
+				<li class="entry-item entry-item-min-left entry-item-min-alike">
+						<a href="javascript:;">
+						<img src="images/sundry-img33.jpg" alt="">
+							<div class="entry-item-left entry-item-left-col7">
+								<h4 class="entry-item-left-alike">设计师推荐</h4>
+								<span class="entry-item-left-alike">家具超级品类日</span>
+							</div>
+						</a>
+				</li>
+				<li class="entry-item entry-item-min-right entry-item-min-alike">
+						<a href="javascript:;">
+						<img src="images/sundry-img34.jpg" alt="">
+							<div class="entry-item-left entry-item-left-col8">
+								<h4 class="entry-item-left-alike">全球尖货</h4>
+								<span class="entry-item-left-alike">全球自营好货</span>
+							</div>
+						</a>
+				</li>
+
+			</ul>
+		</div>
+	<!-- site-quality 部分end -->
+
+	<!-- site-advertising 部分start -->
+		<div class="site-advertising">
+			<div class="site-advertising-content w">
+				<a href="javascirpt:;"><img src="images/sundry-img35.jpg" alt=""></a>
+				<a href="javascirpt:;"><img src="images/sundry-img36.jpg" alt=""></a>
+				<a href="javascirpt:;"><img src="images/sundry-img37.jpg" alt=""></a>
+			</div>
+		</div>
+	<!-- site-advertising 部分end -->
+
+	<!-- site-live 部分start -->
+		<div class="site-quality-title w">
+			<span>.............................</span>
+			<h3>爱生活</h3>
+			<span>.............................</span>
+		</div>
+		<!--***************************-->
+		
+		<div class="grid-box4 w">
+				<div class="site-live-left  site-live-alike">
+					<div class="site-live-left-title site-live-title-alike site-live-title-col1">
+						<h4>爱逛</h4>
+						<div class="site-live-title-alike-float-r">
+						<a href="javascript:;">秋尚新</a>
+						<a href="javascript:;">潮搭学院</a>
+						<a href="javascript:;">舒适内衣</a>
+						<a href="javascript:;">七夕</a>
+						<a href="javascript:;">钟表自营</a>
+						</div>
+					</div>
+					<div class="site-live-content">
+						<a class="site-live-content-left" href="javascript:;">
+							<img src="images/sundry-img38.jpg" alt="">
+						</a>
+						<div class="site-live-content-right">
+							<div class="site-live-content-right-hidden">
+							<a href="javascript:;">
+								<p class="site-live-content-right-p site-live-content-right-p1 site-live-content-right-p1-col1">男装秋上新</p>
+								<p class="site-live-content-right-p site-live-content-right-p2">8折尝新</p>
+								<img src="images/sundry-img39.jpg" alt="">
+							</a>
+							<a href="javascript:;">
+								<p class="site-live-content-right-p site-live-content-right-p1 site-live-content-right-p1-col1">潮流秋尚新</p>
+								<p class="site-live-content-right-p site-live-content-right-p2">低至7折</p>
+								<img src="images/sundry-img40.jpg" alt="">
+							</a>
+							<a href="javascript:;">
+								<p class="site-live-content-right-p site-live-content-right-p1 site-live-content-right-p1-col1">童装开学季</p>
+								<p class="site-live-content-right-p site-live-content-right-p2">3件7折</p>
+								<img src="images/sundry-img41.jpg" alt="">
+								</a>
+							<a href="javascript:;">
+								<p class="site-live-content-right-p site-live-content-right-p1 site-live-content-right-p1-col1">潮搭学院</p>
+								<p class="site-live-content-right-p site-live-content-right-p2">爆品1元秒杀</p>
+								<img src="images/sundry-img42.jpg" alt="">
+								</a>
+							</div>
+						</div>
+						<div class="site-live-content-bottom">
+							<a href="javascript:;"> <img src="images/sundry-img43.jpg" alt=""> </a>
+							<a href="javascript:;"> <img src="images/sundry-img44.jpg" alt=""> </a>
+							<a href="javascript:;"> <img src="images/sundry-img45.jpg" alt=""> </a>
+						</div>
+						<div class="site-live-content-img">
+							<div class="site-live-content-img-hidden">
+								<ul>
+									<li><a href="javacript:;"><img src="images/sundry-img46.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img47.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img48.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img49.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img50.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img51.jpg" alt=""></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="site-live-alike">
+					<div class="site-live-left site-live-alike">
+						<div class="site-live-right-title site-live-title-alike site-live-title-col2">
+							<h4>爱美丽</h4>
+						<div class="site-live-title-alike-float-r">
+						<a href="javascript:;">女香</a>
+						<a href="javascript:;">男香</a>
+						<a href="javascript:;">口红</a>
+						<a href="javascript:;">七夕套装</a>
+						<a href="javascript:;">七夕有礼</a>
+						<a href="javascript:;">洗护发</a>
+						</div>
+					</div>
+					<div class="site-live-content">
+						<a class="site-live-content-left" href="javascript:;">
+							<img src="images/sundry-img52.jpg" alt="">
+						</a>
+						<div class="site-live-content-right">
+							<div class="site-live-content-right-hidden">
+							<a href="javascript:;">
+								<p class="site-live-content-right-p site-live-content-right-p1 site-live-content-right-p1-col1">男装秋上新</p>
+								<p class="site-live-content-right-p site-live-content-right-p2">8折尝新</p>
+								<img src="images/sundry-img53.jpg" alt="">
+							</a>
+							<a href="javascript:;">
+								<p class="site-live-content-right-p site-live-content-right-p1 site-live-content-right-p1-col1">潮流秋尚新</p>
+								<p class="site-live-content-right-p site-live-content-right-p2">低至7折</p>
+								<img src="images/sundry-img54.jpg" alt="">
+							</a>
+							<a href="javascript:;">
+								<p class="site-live-content-right-p site-live-content-right-p1 site-live-content-right-p1-col1">童装开学季</p>
+								<p class="site-live-content-right-p site-live-content-right-p2">3件7折</p>
+								<img src="images/sundry-img55.jpg" alt="">
+								</a>
+							<a href="javascript:;">
+								<p class="site-live-content-right-p site-live-content-right-p1 site-live-content-right-p1-col1">潮搭学院</p>
+								<p class="site-live-content-right-p site-live-content-right-p2">爆品1元秒杀</p>
+								<img src="images/sundry-img56.jpg" alt="">
+								</a>
+							</div>
+						</div>
+						<div class="site-live-content-bottom">
+							<a href="javascript:;"> <img src="images/sundry-img57.jpg" alt=""> </a>
+							<a href="javascript:;"> <img src="images/sundry-img58.jpg" alt=""> </a>
+							<a href="javascript:;"> <img src="images/sundry-img59.jpg" alt=""> </a>
+						</div>
+						<div class="site-live-content-img">
+							<div class="site-live-content-img-hidden">
+								<ul>
+									<li><a href="javacript:;"><img src="images/sundry-img60.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img61.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img62.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img63.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img64.jpg" alt=""></a></li>
+									<li><a href="javacript:;"><img src="images/sundry-img65.jpg" alt=""></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+		   </div>
+		</div>
+	<!-- site-live 部分end -->
+
+	<!-- site-nav 部分start -->
+	<div class="box-load w">
+		<div class="box-load-text">
+			<a href="#">加载更多</a>
+		</div>
+	</div>
+	<!-- site-nav 部分end -->
+
+	<!-- site-nav 部分start -->
+	
+	<!-- site-nav 部分end -->
+
+	<!-- footer 部分start -->
+	<div class="footer">
+		<div class="footer-top">
+			<div class="w footer-top-slogen">
+			<ul class="footer-top-slogen-list">
+				<li class="footer-top-slogen-item">
+					<div class="footer-top-slogen-unit">
+					<h5 class="footer-top-slogen-tit footer-top-slogen-duo">多</h5>
+					<p class="footer-top-slogen-txt">品类齐全,轻松购物</p>
+					</div>
+				</li>
+				<li class="footer-top-slogen-item">
+					<div class="footer-top-slogen-unit">
+					<h5 class="footer-top-slogen-tit footer-top-slogen-kuai">快</h5>
+					<p class="footer-top-slogen-txt">多仓直发,急速配送</p>
+					</div>
+				</li>
+				<li class="footer-top-slogen-item">
+					<div class="footer-top-slogen-unit">
+					<h5 class="footer-top-slogen-tit footer-top-slogen-hao">好</h5>
+					<p class="footer-top-slogen-txt">正品行货,精致服务</p>
+					</div>
+				</li>
+				<li class="footer-top-slogen-item">
+					<div class="footer-top-slogen-unit">
+					<h5 class="footer-top-slogen-tit footer-top-slogen-sheng">省</h5>
+					<p class="footer-top-slogen-txt">天天低价,流畅无忧</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+			<div class="footer-top-shopping w">
+			<dl>
+				<dt>购物指南</dt>
+				<dd><a href="#">购物流程</a></dd>
+				<dd><a href="#">会员介绍</a></dd>
+				<dd><a href="#">生活旅行</a></dd>
+				<dd><a href="#">常见问题</a></dd>
+				<dd><a href="#">大家电</a></dd>
+				<dd><a href="#">联系客服</a></dd>
+			</dl>
+			<dl>
+				<dt>购物指南</dt>
+				<dd><a href="#">上门自提</a></dd>
+				<dd><a href="#">211限时达</a></dd>
+				<dd><a href="#">配送服务查询</a></dd>
+				<dd><a href="#">配送费收取标准</a></dd>
+				<dd><a href="#">海外配送</a></dd>
+			</dl>
+			<dl>
+				<dt>购物指南</dt>
+				<dd><a href="#">购物流程</a></dd>
+				<dd><a href="#">会员介绍</a></dd>
+				<dd><a href="#">生活旅行</a></dd>
+				<dd><a href="#">常见问题</a></dd>
+				<dd><a href="#">大家电</a></dd>
+				<dd><a href="#">联系客服</a></dd>
+			</dl>
+			<dl>
+				<dt>购物指南</dt>
+				<dd><a href="#">购物流程</a></dd>
+				<dd><a href="#">会员介绍</a></dd>
+				<dd><a href="#">生活旅行</a></dd>
+				<dd><a href="#">常见问题</a></dd>
+				<dd><a href="#">大家电</a></dd>
+				<dd><a href="#">联系客服</a></dd>
+			</dl>
+			<dl class="last-dl">
+				<dt>购物指南</dt>
+				<dd><a href="#">购物流程</a></dd>
+				<dd><a href="#">会员介绍</a></dd>
+				<dd><a href="#">生活旅行</a></dd>
+				<dd><a href="#">常见问题</a></dd>
+				<dd><a href="#">大家电</a></dd>
+				<dd><a href="#">联系客服</a></dd>
+			</dl>
+			<div class="coverage">
+				<h3>京东自营覆盖区县</h3>
+				<p>京东已向全国2661个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务。</p>
+				<a href="">查看详情 ></a>
+			</div>
+
+			</div>
+		
+		<div class="footer-bottom">
+			<div class="footer-button-links">
+			<a href="#">关于我们</a>|
+			<a href="#">联系我们</a>|
+			<a href="#">联系客服</a>|
+			<a href="#">合作招商</a>|
+			<a href="#">商家帮助</a>|
+			<a href="#">营销中心</a>|
+			<a href="#">手机京东</a>|
+			<a href="#">友情链接</a>|
+			<a href="#">销售联盟</a>|
+			<a href="#">京东社区</a>|
+			<a href="#">风险监测</a>|
+			<a href="#">京东公益</a>|
+			<a href="#">EnglishSite</a>|
+			<a href="#">Media & IR</a>
+			</div>
+			<div class="footer-bottom-copyright">
+				京公网安备 11000002000088号<span>|</span>京ICP证070359号<span>|</span>互联网药品信息服务资格证编号(京)-经营性-2014-0008<span>|</span>新出发京零 字第大120007号<br>
+				互联网出版许可证编号新出网证(京)字150号<span>|</span>出版物经营许可证<span>|</span>网络文化经营许可证京网文[2014]2148-348号<span>|</span>违法和不良信息举报电话：4006561155<br>
+				Copyright © 2004 - 2017  京东JD.com 版权所有|消费者维权热线：4006067733经营证照<br>
+				京东旗下网站：京东支付<span>|</span>京东云
+			</div>
+			<div class="footer-bottom-img">
+				<a href="#" class="footer-img footer-imeg1"></a>
+				<a href="#" class="footer-img footer-imeg2"></a>
+				<a href="#" class="footer-img footer-imeg3"></a>
+				<a href="#" class="footer-img footer-imeg4"></a>
+				<a href="#" class="footer-img footer-imeg5"></a>
+				<a href="#" class="footer-img footer-imeg6"></a>
+			</div>
+		</div>
+	</div>
+	<!-- footer 部分end -->
 </body>
 </html>
